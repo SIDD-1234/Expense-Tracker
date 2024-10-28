@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f4f4;
+        }
+
+        .dashboard-container {
+            max-width: 800px;
+            margin: 30px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .expense-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .expense-item:last-child {
+            border-bottom: none;
+        }
+
+        .expense-actions a {
+            margin-left: 10px;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .expense-actions a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        .btn-primary, .btn-danger {
+            font-size: 14px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h2>Dashboard</h2>
+        <div class="mb-3">
+            <a href="{{ url_for('manage_expenses') }}" class="btn btn-primary">Add Expense</a>
+            <a href="{{ url_for('logout') }}" class="btn btn-danger">Logout</a>
+        </div>
+        <ul class="list-group">
+            {% for expense in expenses %}
+            <li class="list-group-item expense-item">
+                <div>
+                    <strong>{{ expense.description }}</strong> - ${{ expense.amount }} ({{ expense.category }})
+                </div>
+                <div class="expense-actions">
+                    <a href="{{ url_for('update_expense', id=expense.id) }}" class="text-warning">Update</a>
+                    <a href="{{ url_for('delete_expense', id=expense.id) }}" class="text-danger">Delete</a>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Bootstrap JS and dependencies (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+{% endblock %}
