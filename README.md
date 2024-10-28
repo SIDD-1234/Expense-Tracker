@@ -1,5 +1,5 @@
 
-﻿blinker==1.8.2
+﻿blinker==1.8.2 <br>
 click==8.1.7
 colorama==0.4.6
 Flask==3.0.3
